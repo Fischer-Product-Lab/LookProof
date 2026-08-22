@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0.0",
+  "receiptId": "synthetic-evidence-receipt",
+  "kind": "reference-evidence",
+  "lockId": "shape",
+  "referenceId": "synthetic-square",
+  "referenceSha256": "431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460",
+  "recordedAt": "2000-01-01T00:00:00Z",
+  "statement": "The one-pixel synthetic PNG is declared as evidence for the example shape lock."
+}

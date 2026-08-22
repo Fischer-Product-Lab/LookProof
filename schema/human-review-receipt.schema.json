@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LookProof human-review receipt",
+  "description": "A receipt for human review of request-policy observability, not generated-image quality.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "receiptId",
+    "kind",
+    "lookId",
+    "intentId",
+    "scope",
+    "decision",
+    "reviewedAt",
+    "reviewer",
+    "findings"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "receiptId": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "kind": { "const": "human-review" },
+    "lookId": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "intentId": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "scope": { "const": "request-policy" },
+    "decision": { "enum": ["pass", "fail"] },
+    "reviewedAt": { "type": "string", "format": "date-time" },
+    "reviewer": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["lockId", "clause", "observed", "note"],
+        "properties": {
+          "lockId": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "clause": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "observed": { "type": "boolean" },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

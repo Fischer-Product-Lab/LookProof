@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LookProof binding",
+  "description": "An explicit example-provider binding consumed only while compiling a local request envelope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "provider", "model", "limits"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "id": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "provider": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "model": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maxReferences", "requireReferences"],
+      "properties": {
+        "maxReferences": { "type": "integer", "minimum": 0 },
+        "requireReferences": { "type": "boolean" }
+      }
+    }
+  }
+}

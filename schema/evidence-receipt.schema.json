@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LookProof reference-evidence receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "receiptId",
+    "kind",
+    "lockId",
+    "referenceId",
+    "referenceSha256",
+    "recordedAt",
+    "statement"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "receiptId": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "kind": { "const": "reference-evidence" },
+    "lockId": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "referenceId": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "referenceSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "recordedAt": { "type": "string", "format": "date-time" },
+    "statement": { "type": "string", "minLength": 1, "pattern": "\\S" }
+  }
+}

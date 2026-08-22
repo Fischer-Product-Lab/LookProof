@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LookProof policy",
+  "description": "A provider-neutral local creative policy compiled by LookProof.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "identity",
+    "defaultRoom",
+    "grammar",
+    "nevers",
+    "intents",
+    "references",
+    "paths"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "name": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "defaultRoom": { "enum": ["explore", "locked"] },
+    "grammar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["silhouette", "costume", "face", "era", "palette"],
+      "properties": {
+        "silhouette": { "type": "string" },
+        "costume": { "type": "string" },
+        "face": { "type": "string" },
+        "era": { "type": "string" },
+        "palette": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+        }
+      }
+    },
+    "nevers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["categories", "promptNever", "forbidUiChromeForKinds"],
+      "properties": {
+        "categories": { "$ref": "#/$defs/uniqueStrings" },
+        "promptNever": { "$ref": "#/$defs/uniqueStrings" },
+        "forbidUiChromeForKinds": { "$ref": "#/$defs/uniqueStrings" }
+      }
+    },
+    "locks": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/nonEmptyString" },
+      "additionalProperties": { "$ref": "#/$defs/lock" },
+      "default": {}
+    },
+    "intents": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/intent" }
+    },
+    "references": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sets"],
+      "properties": {
+        "sets": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/referenceSet" }
+        }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["references"],
+      "properties": {
+        "references": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description"],
+      "properties": {
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "enforcement": {
+          "enum": ["generativeLock", "deterministicOnly", "humanReviewRequired"],
+          "default": "generativeLock"
+        },
+        "evidenceRequired": { "type": "boolean", "default": false },
+        "mustShow": { "$ref": "#/$defs/uniqueStrings", "default": [] },
+        "reviewRule": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "aspectRatio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height", "tolerance"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "tolerance": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "aspectRatio", "minWidth", "referenceSet"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/nonEmptyString" },
+        "aspectRatio": { "$ref": "#/$defs/aspectRatio" },
+        "minWidth": { "type": "integer", "minimum": 1 },
+        "referenceSet": { "$ref": "#/$defs/nonEmptyString" },
+        "requiredLocks": { "$ref": "#/$defs/uniqueStrings", "default": [] }
+      }
+    },
+    "referenceFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "path",
+        "sha256",
+        "scopes",
+        "status",
+        "source",
+        "permittedUse",
+        "knownLimits"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "path": { "$ref": "#/$defs/nonEmptyString" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "scopes": { "$ref": "#/$defs/uniqueStrings" },
+        "status": { "enum": ["REFERENCE", "AUTHORITY"] },
+        "source": { "$ref": "#/$defs/nonEmptyString" },
+        "permittedUse": { "$ref": "#/$defs/uniqueStrings" },
+        "knownLimits": { "$ref": "#/$defs/uniqueStrings" },
+        "supportsLocks": { "$ref": "#/$defs/uniqueStrings" },
+        "conflictsWithLocks": { "$ref": "#/$defs/uniqueStrings" }
+      }
+    },
+    "referenceSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "files"],
+      "properties": {
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "files": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/referenceFile" }
+        }
+      }
+    }
+  }
+}

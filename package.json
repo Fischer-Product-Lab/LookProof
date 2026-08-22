@@ -1,0 +1,15 @@
+{
+  "name": "lookproof",
+  "version": "0.1.0",
+  "description": "A local provider-neutral creative-policy compiler and mechanical PNG checker.",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --test --test-concurrency=1 tests/cli.test.ts tests/artifacts.test.ts tests/demo.test.ts",
+    "demo": "node --experimental-strip-types scripts/demo.ts"
+  }
+}

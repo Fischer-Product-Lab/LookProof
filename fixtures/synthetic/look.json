@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "1.0.0",
+  "identity": {
+    "id": "synthetic-geometry",
+    "name": "Synthetic Geometry"
+  },
+  "defaultRoom": "locked",
+  "grammar": {
+    "silhouette": "one centered square",
+    "costume": "not applicable",
+    "face": "not applicable",
+    "era": "timeless",
+    "palette": ["#112233", "#DDEEFF"]
+  },
+  "nevers": {
+    "categories": ["format-intent"],
+    "promptNever": ["watermark"],
+    "forbidUiChromeForKinds": ["synthetic-tile"]
+  },
+  "locks": {
+    "shape": {
+      "description": "Keep a single centered square.",
+      "enforcement": "humanReviewRequired",
+      "evidenceRequired": true,
+      "mustShow": ["one centered blue square"],
+      "reviewRule": "Confirm the clause is visible in the compiled request."
+    },
+    "fixed-pixel-grid": {
+      "description": "Permit only an exact deterministic pixel transform.",
+      "enforcement": "deterministicOnly",
+      "evidenceRequired": false,
+      "mustShow": ["an exact one-pixel grid"],
+      "reviewRule": "A generative request cannot satisfy this lock."
+    }
+  },
+  "intents": {
+    "pass-tile": {
+      "kind": "synthetic-tile",
+      "aspectRatio": { "width": 1, "height": 1, "tolerance": 0 },
+      "minWidth": 1,
+      "referenceSet": "primary",
+      "requiredLocks": ["shape"]
+    },
+    "conflict-tile": {
+      "kind": "synthetic-tile",
+      "aspectRatio": { "width": 1, "height": 1, "tolerance": 0 },
+      "minWidth": 1,
+      "referenceSet": "conflicting",
+      "requiredLocks": ["shape"]
+    },
+    "deterministic-tile": {
+      "kind": "synthetic-tile",
+      "aspectRatio": { "width": 1, "height": 1, "tolerance": 0 },
+      "minWidth": 1,
+      "referenceSet": "primary",
+      "requiredLocks": ["fixed-pixel-grid"]
+    }
+  },
+  "references": {
+    "sets": {
+      "primary": {
+        "description": "Synthetic non-conflicting reference.",
+        "files": [
+          {
+            "id": "synthetic-square",
+            "path": "keepers/reference.png",
+            "sha256": "431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460",
+            "scopes": ["shape"],
+            "status": "AUTHORITY",
+            "source": "synthetic public fixture",
+            "permittedUse": ["tests", "documentation"],
+            "knownLimits": ["one-pixel mechanical fixture only"],
+            "supportsLocks": ["shape"]
+          }
+        ]
+      },
+      "conflicting": {
+        "description": "Synthetic reference that declares a lock conflict.",
+        "files": [
+          {
+            "id": "synthetic-square-conflict",
+            "path": "keepers/reference.png",
+            "sha256": "431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460",
+            "scopes": ["shape"],
+            "status": "REFERENCE",
+            "source": "synthetic public fixture",
+            "permittedUse": ["tests", "documentation"],
+            "knownLimits": ["declared conflict demonstration only"],
+            "supportsLocks": ["shape"],
+            "conflictsWithLocks": ["shape"]
+          }
+        ]
+      }
+    }
+  },
+  "paths": {
+    "references": "keepers"
+  }
+}

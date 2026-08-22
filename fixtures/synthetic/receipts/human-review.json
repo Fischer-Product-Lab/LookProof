@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "receiptId": "synthetic-review-receipt",
+  "kind": "human-review",
+  "lookId": "synthetic-geometry",
+  "intentId": "pass-tile",
+  "scope": "request-policy",
+  "decision": "pass",
+  "reviewedAt": "2000-01-01T00:00:00Z",
+  "reviewer": "Example Reviewer",
+  "findings": [
+    {
+      "lockId": "shape",
+      "clause": "one centered blue square",
+      "observed": true,
+      "note": "The clause is present in the frozen prompt prefix."
+    }
+  ]
+}
