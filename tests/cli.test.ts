@@ -5,13 +5,13 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { test } from "node:test";
-import { fileURLToPath } from "node:url";
 
-const repoRoot = fileURLToPath(new URL("..", import.meta.url));
-const cliPath = resolve(repoRoot, "src", "cli.ts");
+
+const repoRoot = process.cwd();
+const cliPath = resolve(repoRoot, "dist", "src", "cli.js");
 
 function runCli(args: string[]) {
-  const result = spawnSync(process.execPath, ["--experimental-strip-types", cliPath, ...args], {
+  const result = spawnSync(process.execPath, [cliPath, ...args], {
     cwd: repoRoot,
     encoding: "utf8",
   });
@@ -66,7 +66,7 @@ function makeFixture() {
   writeFileSync(referencePath, png);
   const referenceHash = sha256(png);
 
-  const look = {
+  const look: any = {
     schemaVersion: "1.0.0",
     identity: { id: "synthetic-look", name: "Synthetic Geometry" },
     defaultRoom: "locked",
@@ -122,7 +122,7 @@ function makeFixture() {
     },
     paths: { references: "keepers" },
   };
-  const binding = {
+  const binding: any = {
     schemaVersion: "1.0.0",
     id: "example-binding",
     provider: "Example Provider",
@@ -265,7 +265,7 @@ test("locked preflight compiles must-show policy and carries receipts without di
   assert.equal(verdict.compiledRequest.policy.requiredLocks[0].humanReviewRequired, true);
   assert.equal(verdict.compiledRequest.policy.requiredLocks[0].humanReviewReceiptPresent, true);
   assert.match(verdict.compiledRequest.frozenPromptPrefix, /^LOOK: synthetic-look \| Synthetic Geometry$/m);
-  assert.doesNotMatch(verdict.compiledRequest.frozenPromptPrefix, /—/);
+  assert.doesNotMatch(verdict.compiledRequest.frozenPromptPrefix, /\u2014/);
   assert.match(verdict.compiledRequest.frozenPromptPrefix, /MUST SHOW \[shape\]: one centered blue square/);
   assert.equal(verdict.compiledRequest.receipts.humanReview.receiptId, "review-example");
   assert.equal(verdict.compiledRequest.receipts.evidence[0].receiptId, "evidence-example");

@@ -1,0 +1,284 @@
+[
+  {
+    "name": "no-command",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Command must be preflight or check.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "unknown-command",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Command must be preflight or check.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "option-pair-required",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Options must be provided as --name value pairs.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "unknown-option",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Unknown or duplicate option: --mystery.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "duplicate-option",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Unknown or duplicate option: --look.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "missing-look-precedes-binding",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Missing required --look option.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "missing-binding",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Missing required --binding option.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "look-malformed",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"look-unreadable\",\"detail\":\"Look could not be read as JSON.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "look-non-object",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"look-unreadable\",\"detail\":\"Look must be a JSON object.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "look-schema-precedes-binding",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"schema-invalid\",\"detail\":\"Look does not satisfy the runtime schema: grammar.palette.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "invalid-room",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"--room must be explore or locked.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "intent-missing",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"intent-missing\",\"detail\":\"Missing required --intent option.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "intent-unknown",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"intent-unknown\",\"detail\":\"Intent unknown is not declared by this Look.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "lock-missing",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"lock-missing\",\"detail\":\"Required lock shape is not declared.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "reference-set-missing",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"reference-set-missing\",\"detail\":\"Reference set primary is not declared.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "reference-conflict-precedes-readiness-and-determinism",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"reference-conflict\",\"detail\":\"Reference synthetic-square conflicts with required lock shape.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "deterministic-only-precedes-binding",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"deterministic-only-lock\",\"detail\":\"Required lock shape is deterministic-only and cannot be compiled into a generative request.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "binding-malformed",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"binding-unreadable\",\"detail\":\"Binding could not be read as JSON.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "binding-non-object",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"binding-unreadable\",\"detail\":\"Binding must be a JSON object.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "binding-schema-precedes-prompt-policy",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"schema-invalid\",\"detail\":\"Binding does not satisfy the runtime schema: binding.limits.maxReferences.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "prompt-missing",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Missing required --prompt option.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "prompt-never-precedes-reference-readiness",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"prompt-never\",\"detail\":\"Prompt matches declared never: watermark.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "invented-chrome",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"invented-chrome\",\"detail\":\"Prompt asks for forbidden UI chrome: hud.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "references-required",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"references-required\",\"detail\":\"The selected binding requires at least one reference file.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "reference-limit-precedes-path-readiness",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"references-over-limit\",\"detail\":\"Selected reference set has 1 files; binding limit is 0.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "configured-reference-root-absolute",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"reference-path-invalid\",\"detail\":\"Configured references path must be a non-empty relative path.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "configured-reference-root-traversal",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"reference-path-invalid\",\"detail\":\"Configured references path must resolve inside the Look folder.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "reference-path-absolute",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"reference-path-invalid\",\"detail\":\"Reference synthetic-square must use a relative path.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "reference-path-missing",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"reference-path-invalid\",\"detail\":\"Reference synthetic-square escapes or is missing from the references folder.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "reference-non-file",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"reference-unreadable\",\"detail\":\"Reference synthetic-square could not be safely read.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "reference-hash-precedes-receipts",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"reference-hash-mismatch\",\"detail\":\"Reference synthetic-square does not match its declared SHA-256.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "evidence-receipt-malformed-precedes-human",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"evidence-receipt-unreadable\",\"detail\":\"Evidence-receipt could not be read as JSON.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "evidence-receipt-schema",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"schema-invalid\",\"detail\":\"Evidence receipt does not satisfy the runtime schema: evidenceReceipt.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "human-receipt-malformed",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"human-review-receipt-unreadable\",\"detail\":\"Human-review-receipt could not be read as JSON.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "human-receipt-schema",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"schema-invalid\",\"detail\":\"Human-review receipt does not satisfy the runtime schema: humanReviewReceipt.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "evidence-missing-precedes-human-review",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"lock-evidence-missing\",\"detail\":\"Required lock shape has no matching evidence receipt and supporting reference.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "human-review-missing",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"human-review-receipt-missing\",\"detail\":\"Required lock shape has no matching passing request-policy review receipt.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "preflight-pass",
+    "status": 0,
+    "stdout": "{\"status\":\"pass\",\"room\":\"locked\",\"gate\":\"pass\",\"detail\":\"Creative-policy preflight compiled locally; no provider call occurred.\",\"warnings\":[],\"compiledRequest\":{\"look\":{\"id\":\"synthetic-geometry\",\"name\":\"Synthetic Geometry\",\"sha256\":\"dba47b212410f5d2c4da568389d0803bad99ba988bd69af9096b74e43039fe27\"},\"binding\":{\"id\":\"example-binding\",\"provider\":\"Example Provider\",\"model\":\"example-model\",\"limits\":{\"maxReferences\":2,\"requireReferences\":true},\"sha256\":\"7601a7d11e0d0a08726b427562c5cd2cc3ec5dbf16a2f947df936e1f068142f5\"},\"room\":\"locked\",\"intent\":{\"id\":\"pass-tile\",\"kind\":\"synthetic-tile\"},\"output\":{\"aspectRatio\":{\"width\":1,\"height\":1,\"tolerance\":0},\"minWidth\":1},\"policy\":{\"requiredLocks\":[{\"lockId\":\"shape\",\"description\":\"Keep a single centered square.\",\"enforcement\":\"humanReviewRequired\",\"evidenceRequired\":true,\"mustShow\":[\"one centered blue square\"],\"reviewRule\":\"Confirm the clause is visible in the compiled request.\",\"humanReviewRequired\":true,\"humanReviewReceiptPresent\":true}]},\"frozenPromptPrefix\":\"LOOK: synthetic-geometry | Synthetic Geometry\\nSILHOUETTE: one centered square\\nCOSTUME: not applicable\\nFACE: not applicable\\nERA: timeless\\nPALETTE: #112233, #DDEEFF\\nINTENT: pass-tile (synthetic-tile)\\nREQUIRED LOCK: shape (humanReviewRequired)\\nMUST SHOW [shape]: one centered blue square\\nFORMAT: 1:1; minimum width 1px; aspect tolerance 0\",\"userPrompt\":\"Render the declared synthetic geometry.\",\"references\":[{\"id\":\"synthetic-square\",\"path\":\"keepers/reference.png\",\"sha256\":\"431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460\",\"scopes\":[\"shape\"],\"status\":\"AUTHORITY\",\"source\":\"synthetic public fixture\",\"permittedUse\":[\"tests\",\"documentation\"],\"knownLimits\":[\"one-pixel mechanical fixture only\"],\"supportsLocks\":[\"shape\"]}],\"receipts\":{\"evidence\":[{\"schemaVersion\":\"1.0.0\",\"receiptId\":\"synthetic-evidence-receipt\",\"kind\":\"reference-evidence\",\"lockId\":\"shape\",\"referenceId\":\"synthetic-square\",\"referenceSha256\":\"431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460\",\"recordedAt\":\"2000-01-01T00:00:00Z\",\"statement\":\"The one-pixel synthetic PNG is declared as evidence for the example shape lock.\"}],\"humanReview\":{\"schemaVersion\":\"1.0.0\",\"receiptId\":\"synthetic-review-receipt\",\"kind\":\"human-review\",\"lookId\":\"synthetic-geometry\",\"intentId\":\"pass-tile\",\"scope\":\"request-policy\",\"decision\":\"pass\",\"reviewedAt\":\"2000-01-01T00:00:00Z\",\"reviewer\":\"Example Reviewer\",\"findings\":[{\"lockId\":\"shape\",\"clause\":\"one centered blue square\",\"observed\":true,\"note\":\"The clause is present in the frozen prompt prefix.\"}]}},\"requestSha256\":\"c10a890a440b83998fd5aa938ec9d29f157206b24a1c629d89b13935677c9a8d\"},\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "preflight-default-explore-pass",
+    "status": 0,
+    "stdout": "{\"status\":\"pass\",\"room\":\"explore\",\"gate\":\"pass\",\"detail\":\"Creative-policy preflight compiled locally; no provider call occurred.\",\"warnings\":[],\"compiledRequest\":{\"look\":{\"id\":\"synthetic-geometry\",\"name\":\"Synthetic Geometry\",\"sha256\":\"0f1b65fa318a352ab26740186cd7a21b2285e48277c093c3844a9885069aaaf8\"},\"binding\":{\"id\":\"example-binding\",\"provider\":\"Example Provider\",\"model\":\"example-model\",\"limits\":{\"maxReferences\":2,\"requireReferences\":true},\"sha256\":\"7601a7d11e0d0a08726b427562c5cd2cc3ec5dbf16a2f947df936e1f068142f5\"},\"room\":\"explore\",\"intent\":{\"id\":\"pass-tile\",\"kind\":\"synthetic-tile\"},\"output\":{\"aspectRatio\":{\"width\":1,\"height\":1,\"tolerance\":0},\"minWidth\":1},\"policy\":{\"requiredLocks\":[{\"lockId\":\"shape\",\"description\":\"Keep a single centered square.\",\"enforcement\":\"humanReviewRequired\",\"evidenceRequired\":true,\"mustShow\":[\"one centered blue square\"],\"reviewRule\":\"Confirm the clause is visible in the compiled request.\",\"humanReviewRequired\":true,\"humanReviewReceiptPresent\":true}]},\"frozenPromptPrefix\":\"LOOK: synthetic-geometry | Synthetic Geometry\\nSILHOUETTE: one centered square\\nCOSTUME: not applicable\\nFACE: not applicable\\nERA: timeless\\nPALETTE: #112233, #DDEEFF\\nINTENT: pass-tile (synthetic-tile)\\nREQUIRED LOCK: shape (humanReviewRequired)\\nMUST SHOW [shape]: one centered blue square\\nFORMAT: 1:1; minimum width 1px; aspect tolerance 0\",\"userPrompt\":\"Render the declared synthetic geometry.\",\"references\":[{\"id\":\"synthetic-square\",\"path\":\"keepers/reference.png\",\"sha256\":\"431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460\",\"scopes\":[\"shape\"],\"status\":\"AUTHORITY\",\"source\":\"synthetic public fixture\",\"permittedUse\":[\"tests\",\"documentation\"],\"knownLimits\":[\"one-pixel mechanical fixture only\"],\"supportsLocks\":[\"shape\"]}],\"receipts\":{\"evidence\":[{\"schemaVersion\":\"1.0.0\",\"receiptId\":\"synthetic-evidence-receipt\",\"kind\":\"reference-evidence\",\"lockId\":\"shape\",\"referenceId\":\"synthetic-square\",\"referenceSha256\":\"431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460\",\"recordedAt\":\"2000-01-01T00:00:00Z\",\"statement\":\"The one-pixel synthetic PNG is declared as evidence for the example shape lock.\"}],\"humanReview\":{\"schemaVersion\":\"1.0.0\",\"receiptId\":\"synthetic-review-receipt\",\"kind\":\"human-review\",\"lookId\":\"synthetic-geometry\",\"intentId\":\"pass-tile\",\"scope\":\"request-policy\",\"decision\":\"pass\",\"reviewedAt\":\"2000-01-01T00:00:00Z\",\"reviewer\":\"Example Reviewer\",\"findings\":[{\"lockId\":\"shape\",\"clause\":\"one centered blue square\",\"observed\":true,\"note\":\"The clause is present in the frozen prompt prefix.\"}]}},\"requestSha256\":\"e6f35259d17c4b3044d51a52b5b2c835e0293fb3bbb0aeaf96248cee02ea811d\"},\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "check-unknown-intent-precedes-image",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"intent-unknown\",\"detail\":\"Intent unknown is not declared by this Look.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "check-image-option-missing",
+    "status": 2,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"arguments-invalid\",\"detail\":\"Missing required --image option.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "image-unreadable",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"image-unreadable\",\"detail\":\"Image file could not be read.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "image-not-png",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"image-not-png\",\"detail\":\"Image is not a PNG with a readable IHDR header.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "png-zero-dimension",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"image-not-png\",\"detail\":\"PNG dimensions must be nonzero.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "png-width-precedes-aspect",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"format-width\",\"detail\":\"PNG width 1px is below the required 2px.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "png-aspect",
+    "status": 1,
+    "stdout": "{\"status\":\"fail\",\"room\":\"locked\",\"gate\":\"format-aspect\",\"detail\":\"PNG aspect error 0.500000 exceeds tolerance 0.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  },
+  {
+    "name": "check-pass",
+    "status": 0,
+    "stdout": "{\"status\":\"pass\",\"room\":\"locked\",\"gate\":\"pass\",\"detail\":\"Mechanical PNG format passes (1x1); no visual-policy claim was made.\",\"warnings\":[],\"compiledRequest\":null,\"dispatched\":false}\n",
+    "stderr": ""
+  }
+]

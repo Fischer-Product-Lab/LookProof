@@ -2,14 +2,14 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
 import { test } from "node:test";
-import { fileURLToPath } from "node:url";
 
-const repoRoot = fileURLToPath(new URL("..", import.meta.url));
+
+const repoRoot = process.cwd();
 
 test("public demo shows a receipt-bearing pass, required refusals, and no dispatch", () => {
   const result = spawnSync(
     process.execPath,
-    ["--experimental-strip-types", resolve(repoRoot, "scripts", "demo.ts")],
+    [resolve(repoRoot, "dist", "scripts", "demo.js")],
     { cwd: repoRoot, encoding: "utf8" },
   );
 

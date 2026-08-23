@@ -1,77 +1,61 @@
-import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 
-const repoRoot = fileURLToPath(new URL("..", import.meta.url));
-const cliPath = resolve(repoRoot, "src", "cli.ts");
+import { checkImage, compileRequest, NodeFiles, type CoreRun } from "../src/core/index.js";
+
+const repoRoot = process.cwd();
 const fixtureRoot = resolve(repoRoot, "fixtures", "synthetic");
 const look = resolve(fixtureRoot, "look.json");
 const binding = resolve(fixtureRoot, "binding.json");
 const evidence = resolve(fixtureRoot, "receipts", "evidence.json");
 const review = resolve(fixtureRoot, "receipts", "human-review.json");
 const image = resolve(fixtureRoot, "keepers", "reference.png");
+const files = new NodeFiles();
 
-function run(name: string, args: string[]) {
-  const result = spawnSync(process.execPath, ["--experimental-strip-types", cliPath, ...args], {
-    cwd: repoRoot,
-    encoding: "utf8",
-  });
-  if (result.status === null || result.error) throw result.error ?? new Error(`${name} did not exit`);
-  let verdict: unknown;
-  try {
-    verdict = JSON.parse(result.stdout);
-  } catch {
-    throw new Error(`${name} did not emit one JSON verdict: ${result.stderr || result.stdout}`);
-  }
-  return { name, exitCode: result.status, verdict };
+function scenario(name: string, run: CoreRun) {
+  return { name, exitCode: run.exitCode, verdict: run.verdict };
 }
 
-const shared = ["--look", look, "--binding", binding];
 const scenarios = [
-  run("pass-with-human-review-receipt", [
-    "preflight",
-    ...shared,
-    "--intent",
-    "pass-tile",
-    "--prompt",
-    "Render the declared synthetic geometry.",
-    "--evidence-receipt",
-    evidence,
-    "--human-review-receipt",
-    review,
-  ]),
-  run("reference-conflict-refusal", [
-    "preflight",
-    ...shared,
-    "--intent",
-    "conflict-tile",
-    "--prompt",
-    "Render the declared synthetic geometry.",
-  ]),
-  run("deterministic-only-refusal", [
-    "preflight",
-    ...shared,
-    "--intent",
-    "deterministic-tile",
-    "--prompt",
-    "Render the declared synthetic geometry.",
-  ]),
-  run("mechanical-png-check", [
-    "check",
-    "--look",
-    look,
-    "--intent",
-    "pass-tile",
-    "--image",
-    image,
-  ]),
+  scenario(
+    "pass-with-human-review-receipt",
+    compileRequest(files, {
+      lookPath: look,
+      bindingPath: binding,
+      intentId: "pass-tile",
+      prompt: "Render the declared synthetic geometry.",
+      evidenceReceiptPath: evidence,
+      humanReviewReceiptPath: review,
+    }),
+  ),
+  scenario(
+    "reference-conflict-refusal",
+    compileRequest(files, {
+      lookPath: look,
+      bindingPath: binding,
+      intentId: "conflict-tile",
+      prompt: "Render the declared synthetic geometry.",
+    }),
+  ),
+  scenario(
+    "deterministic-only-refusal",
+    compileRequest(files, {
+      lookPath: look,
+      bindingPath: binding,
+      intentId: "deterministic-tile",
+      prompt: "Render the declared synthetic geometry.",
+    }),
+  ),
+  scenario(
+    "mechanical-png-check",
+    checkImage(files, { lookPath: look, intentId: "pass-tile", imagePath: image }),
+  ),
 ];
 
 process.stdout.write(
   `${JSON.stringify(
     {
       demo: "lookproof",
-      dispatched: scenarios.some((scenario: any) => scenario.verdict.dispatched !== false),
+      dispatched: scenarios.some((entry) => entry.verdict.dispatched !== false),
       scenarios,
     },
     null,
