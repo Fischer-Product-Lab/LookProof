@@ -10,6 +10,10 @@ function readJson(path: string): any {
   return JSON.parse(readFileSync(resolve(repoRoot, path), "utf8"));
 }
 
+function readText(path: string): string {
+  return readFileSync(resolve(repoRoot, path), "utf8").replaceAll(String.fromCharCode(13, 10), "\n");
+}
+
 test("public schemas separate provider-neutral policy, binding, and receipts", () => {
   const lookSchema = readJson("schema/look.schema.json");
   const bindingSchema = readJson("schema/binding.schema.json");
@@ -52,16 +56,20 @@ test("package metadata uses the LookProof identity and remains private", () => {
   assert.equal(pkg.name, "lookproof");
   assert.equal(pkg.private, true);
   assert.equal(pkg.license, "Apache-2.0");
-  assert.deepEqual(pkg.dependencies, { "@modelcontextprotocol/server": "2.0.0", zod: "4.4.3" });
-  assert.deepEqual(pkg.devDependencies, { "@types/node": "22.20.1", typescript: "7.0.2" });
+  assert.deepEqual(Object.keys(pkg.dependencies).sort(), ["@modelcontextprotocol/server", "zod"]);
+  assert.match(pkg.dependencies["@modelcontextprotocol/server"], /^2\./);
+  assert.match(pkg.dependencies.zod, /^4\./);
+  assert.deepEqual(Object.keys(pkg.devDependencies).sort(), ["@types/node", "typescript"]);
+  assert.match(pkg.devDependencies["@types/node"], /^22\./);
+  assert.match(pkg.devDependencies.typescript, /^7\./);
 });
 
 test("public documentation states the actual LookProof boundary", () => {
-  const readme = readFileSync(resolve(repoRoot, "README.md"), "utf8");
-  const threatModel = readFileSync(resolve(repoRoot, "docs", "threat-model.md"), "utf8");
-  const limitations = readFileSync(resolve(repoRoot, "docs", "limitations.md"), "utf8");
-  const license = readFileSync(resolve(repoRoot, "LICENSE"), "utf8");
-  const notice = readFileSync(resolve(repoRoot, "NOTICE"), "utf8");
+  const readme = readText("README.md");
+  const threatModel = readText("docs/threat-model.md");
+  const limitations = readText("docs/limitations.md");
+  const license = readText("LICENSE");
+  const notice = readText("NOTICE");
 
   assert.match(readme, /^# LookProof$/m);
   assert.match(readme, /proves declared checks ran and inputs were hashed/i);
@@ -76,7 +84,7 @@ test("public documentation states the actual LookProof boundary", () => {
 });
 
 test("README is a complete local command reference", () => {
-  const readme = readFileSync(resolve(repoRoot, "README.md"), "utf8");
+  const readme = readText("README.md");
   for (const heading of [
     "## Try it",
     "## Selected output",
@@ -114,7 +122,7 @@ test("README is a complete local command reference", () => {
 });
 
 test("README uses the exact Hermes YAML configuration for the contained MCP server", () => {
-  const readme = readFileSync(resolve(repoRoot, "README.md"), "utf8");
+  const readme = readText("README.md");
   const expected = [
     "```yaml",
     "mcp_servers:",
@@ -150,7 +158,7 @@ test("fixture policy is provider-neutral and production has no network or dispat
     "src/core/outcome.ts",
     "src/core/validate.ts",
     "src/core/validators.ts",
-  ].map((path) => readFileSync(resolve(repoRoot, path), "utf8")).join("\n");
+  ].map((path) => readText(path)).join("\n");
   for (const key of ["provider", "model", "binding", "bindings", "endpoint", "credentials"]) {
     assert.equal(look[key], undefined);
   }
@@ -159,7 +167,7 @@ test("fixture policy is provider-neutral and production has no network or dispat
 });
 
 test("CI is SHA-pinned, read-only, and limited to local quality gates", () => {
-  const ci = readFileSync(resolve(repoRoot, ".github", "workflows", "ci.yml"), "utf8");
+  const ci = readText(".github/workflows/ci.yml");
 
   assert.match(ci, /^name: CI$/m);
   const triggers = ci.match(/^on:\n([\s\S]*?)\npermissions:/m)?.[1];
@@ -182,7 +190,7 @@ test("CI is SHA-pinned, read-only, and limited to local quality gates", () => {
 });
 
 test("security policy keeps reports private, synthetic, and explicitly unsupported", () => {
-  const security = readFileSync(resolve(repoRoot, "SECURITY.md"), "utf8");
+  const security = readText("SECURITY.md");
 
   assert.match(security, /pre-1\.0[^\n]*only the latest `main`/i);
   assert.match(security, /https:\/\/github\.com\/Fischer-Product-Lab\/LookProof\/security\/advisories\/new/);

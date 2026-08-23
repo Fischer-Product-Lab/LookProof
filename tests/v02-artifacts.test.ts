@@ -20,7 +20,7 @@ const productionPaths = [
   "src/core/validate.ts",
   "src/core/validators.ts",
 ];
-const read = (path: string) => readFileSync(resolve(repoRoot, path), "utf8");
+const read = (path: string) => readFileSync(resolve(repoRoot, path), "utf8").replaceAll("\r\n", "\n");
 
 test("production source has no network, provider, credential, environment, or filesystem-write primitive", () => {
   const source = productionPaths.map((path) => read(path)).join("\n");
