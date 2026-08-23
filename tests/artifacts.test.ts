@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { test } from "node:test";
-import { fileURLToPath } from "node:url";
 
-const repoRoot = fileURLToPath(new URL("..", import.meta.url));
+
+const repoRoot = process.cwd();
 
 function readJson(path: string): any {
   return JSON.parse(readFileSync(resolve(repoRoot, path), "utf8"));
@@ -52,8 +52,8 @@ test("package metadata uses the LookProof identity and remains private", () => {
   assert.equal(pkg.name, "lookproof");
   assert.equal(pkg.private, true);
   assert.equal(pkg.license, "Apache-2.0");
-  assert.equal(Object.keys(pkg.dependencies ?? {}).length, 0);
-  assert.equal(Object.keys(pkg.devDependencies ?? {}).length, 0);
+  assert.deepEqual(pkg.dependencies, { "@modelcontextprotocol/server": "2.0.0", zod: "4.4.3" });
+  assert.deepEqual(pkg.devDependencies, { "@types/node": "22.20.1", typescript: "7.0.2" });
 });
 
 test("public documentation states the actual LookProof boundary", () => {
@@ -85,6 +85,9 @@ test("README is a complete local command reference", () => {
     "## Commands",
     "### `preflight`",
     "### `check`",
+    "### `validate`",
+    "### `explain`",
+    "## MCP server",
     "## Schemas",
     "## Security and limitations",
     "## Development",
@@ -100,14 +103,54 @@ test("README is a complete local command reference", () => {
   assert.match(readme, /records the mode[^\n]*does not bypass checks/i);
   assert.match(readme, /required[^\n]*`--look`[^\n]*`--intent`[^\n]*`--image`/i);
   assert.match(readme, /PNG signature and IHDR dimensions/i);
+  assert.match(readme, /npm ci/);
+  assert.match(readme, /npm run build/);
+  assert.match(readme, /dist\/src\/cli\.js/);
+  assert.match(readme, /dist\/src\/mcp\.js --root/);
+  assert.doesNotMatch(readme, /experimental-strip-types|zero-dependency|no package dependencies/i);
   assert.match(readme, /exit code `0`/i);
   assert.match(readme, /exit code `1`/i);
   assert.match(readme, /exit code `2`/i);
 });
 
-test("fixture policy is provider-neutral and the CLI has no network or dispatch primitive", () => {
+test("README uses the exact Hermes YAML configuration for the contained MCP server", () => {
+  const readme = readFileSync(resolve(repoRoot, "README.md"), "utf8");
+  const expected = [
+    "```yaml",
+    "mcp_servers:",
+    "  lookproof:",
+    '    command: "node"',
+    "    args:",
+    '      - "C:/absolute/path/to/LookProof/dist/src/mcp.js"',
+    '      - "--root"',
+    '      - "C:/absolute/path/to/contained/files"',
+    "```",
+  ].join("\n");
+  const actual = readme.match(/Example Hermes stdio configuration:\n\n(```[\s\S]*?```)/)?.[1];
+
+  assert.equal(actual, expected);
+  assert.doesNotMatch(actual ?? "", /^\s*env:/m);
+  assert.doesNotMatch(readme, /mcpServers|\u2014/);
+});
+
+test("fixture policy is provider-neutral and production has no network or dispatch primitive", () => {
   const look = readJson("fixtures/synthetic/look.json");
-  const source = readFileSync(resolve(repoRoot, "src", "cli.ts"), "utf8");
+  const source = [
+    "src/cli.ts",
+    "src/mcp.ts",
+    "src/mcp/server.ts",
+    "src/core/check.ts",
+    "src/core/compile.ts",
+    "src/core/explain.ts",
+    "src/core/files.ts",
+    "src/core/hash.ts",
+    "src/core/index.ts",
+    "src/core/limits.ts",
+    "src/core/model.ts",
+    "src/core/outcome.ts",
+    "src/core/validate.ts",
+    "src/core/validators.ts",
+  ].map((path) => readFileSync(resolve(repoRoot, path), "utf8")).join("\n");
   for (const key of ["provider", "model", "binding", "bindings", "endpoint", "credentials"]) {
     assert.equal(look[key], undefined);
   }
@@ -131,9 +174,11 @@ test("CI is SHA-pinned, read-only, and limited to local quality gates", () => {
     "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0",
   ]);
   assert.match(ci, /^      - uses: actions\/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7\.0\.0\n        with:\n          node-version: 22$/m);
-  assert.deepEqual([...ci.matchAll(/^      - run: (.+)$/gm)].map((match) => match[1]), ["npm test", "npm run demo"]);
-  assert.doesNotMatch(ci, /\b(?:npm|pnpm|yarn)\s+(?:ci|install|add|publish)\b/i);
-  assert.doesNotMatch(ci, /\b(?:cache|matrix|artifacts?|secrets?|installs?|installation|deployments?|releases?|publish(?:ing)?|write)\b/i);
+  assert.deepEqual([...ci.matchAll(/^      - run: (.+)$/gm)].map((match) => match[1]), [
+    "npm ci --ignore-scripts",
+    "npm run check",
+  ]);
+  assert.doesNotMatch(ci, /\b(?:cache|matrix|artifacts?|secrets?|deployments?|releases?|publish(?:ing)?|write)\b/i);
 });
 
 test("security policy keeps reports private, synthetic, and explicitly unsupported", () => {
