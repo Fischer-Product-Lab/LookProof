@@ -61,3 +61,9 @@ The public claim is narrow and already true in the repository:
 - two model families still missed identity after a compiled prompt
 
 If you need pixel compliance, LookProof is the wrong tool. If you need a local fail-before-spend record that a later human can audit, this is what it does.
+
+## A later bounded demonstration
+
+A separate generic signal-lantern study later produced independently passing ordinary identity examples. Its exact border and registration marker still remained outside the generative request. The [show and tell](show-and-tell.md) follows one passing source through refusal, deterministic construction, and independent preservation review.
+
+The later result does not reinterpret the four failures on this page. It tests a simpler ordinary lock and a separate exact construction path.
