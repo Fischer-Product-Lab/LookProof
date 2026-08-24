@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">LookProof refuses a deterministic-only request before spend</title>
+  <desc id="desc">A synthetic Look and deterministic intent enter the local compiler. LookProof returns deterministic-only-lock with no compiled request and dispatched false. The request does not reach upload, provider, or spend. Exact work moves to deterministic construction.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#1e293b" stroke-width="1"/>
+    </pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#34d399"/>
+    </marker>
+    <style>
+      .label { font: 600 18px ui-monospace, SFMono-Regular, Consolas, monospace; fill: #f8fafc; }
+      .sub { font: 14px ui-monospace, SFMono-Regular, Consolas, monospace; fill: #cbd5e1; }
+      .tiny { font: 13px ui-monospace, SFMono-Regular, Consolas, monospace; fill: #94a3b8; }
+      .code { font: 14px ui-monospace, SFMono-Regular, Consolas, monospace; fill: #fecdd3; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="520" rx="16" fill="#020617"/>
+  <rect width="1200" height="520" rx="16" fill="url(#grid)"/>
+
+  <text x="52" y="54" class="label" font-size="22">Example: refused before spend</text>
+  <text x="52" y="82" class="sub">Checked-in synthetic fixture. Local execution only.</text>
+
+  <path d="M310 210H404" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M644 210H738" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M960 270V342H1010" fill="none" stroke="#34d399" stroke-width="3" marker-end="url(#arrow-green)"/>
+
+  <rect x="48" y="132" width="262" height="156" rx="12" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="76" y="174" class="label">Look + intent</text>
+  <text x="76" y="208" class="sub">fixed-pixel-grid</text>
+  <text x="76" y="234" class="sub">enforcement:</text>
+  <text x="76" y="258" class="sub" fill="#fde68a">deterministicOnly</text>
+
+  <rect x="404" y="132" width="240" height="156" rx="12" fill="#0f172a" stroke="#22d3ee" stroke-width="2"/>
+  <text x="434" y="174" class="label">LookProof core</text>
+  <text x="434" y="208" class="sub">validates locally</text>
+  <text x="434" y="234" class="sub">hashes inputs</text>
+  <text x="434" y="260" class="sub">does not dispatch</text>
+
+  <rect x="738" y="116" width="414" height="188" rx="12" fill="#0f172a" stroke="#fb7185" stroke-width="2"/>
+  <text x="768" y="156" class="label">Refusal verdict</text>
+  <text x="768" y="190" class="code">"gate": "deterministic-only-lock"</text>
+  <text x="768" y="220" class="code">"compiledRequest": null</text>
+  <text x="768" y="250" class="code">"dispatched": false</text>
+  <text x="768" y="280" class="tiny">exit code 1</text>
+
+  <rect x="52" y="362" width="180" height="92" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+  <text x="84" y="401" class="label">No upload</text>
+  <text x="84" y="428" class="tiny">0 reference sends</text>
+
+  <rect x="256" y="362" width="190" height="92" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+  <text x="284" y="401" class="label">No provider</text>
+  <text x="284" y="428" class="tiny">0 generation calls</text>
+
+  <rect x="470" y="362" width="170" height="92" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+  <text x="508" y="401" class="label">No spend</text>
+  <text x="508" y="428" class="tiny">0 paid jobs</text>
+
+  <rect x="762" y="346" width="390" height="108" rx="10" fill="#052e2b" stroke="#34d399" stroke-width="2"/>
+  <text x="792" y="388" class="label">Use an exact method</text>
+  <text x="792" y="418" class="sub">deterministic transform, composite,</text>
+  <text x="792" y="442" class="sub">controlled edit, or manual correction</text>
+
+  <path d="M790 304V326H142V354" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+  <path d="M790 304V326H351V354" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+  <path d="M790 304V326H555V354" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+</svg>
