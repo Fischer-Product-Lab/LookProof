@@ -14,6 +14,26 @@ function readText(path: string): string {
   return readFileSync(resolve(repoRoot, path), "utf8").replaceAll(String.fromCharCode(13, 10), "\n");
 }
 
+function readPng(path: string): { width: number; height: number; chunks: string[] } {
+  const bytes = readFileSync(resolve(repoRoot, path));
+  assert.deepEqual(bytes.subarray(0, 8), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), path);
+  assert.equal(bytes.subarray(12, 16).toString("ascii"), "IHDR", path);
+  const chunks: string[] = [];
+  let offset = 8;
+  while (offset + 12 <= bytes.length) {
+    const length = bytes.readUInt32BE(offset);
+    const type = bytes.subarray(offset + 4, offset + 8).toString("ascii");
+    chunks.push(type);
+    offset += 12 + length;
+    if (type === "IEND") break;
+  }
+  return {
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+    chunks,
+  };
+}
+
 test("public schemas separate provider-neutral policy, binding, and receipts", () => {
   const lookSchema = readJson("schema/look.schema.json");
   const bindingSchema = readJson("schema/binding.schema.json");
@@ -102,6 +122,43 @@ test("public case study shows the synthetic refusal without private study artifa
   assert.match(diagram, /0 generation calls/);
   assert.doesNotMatch(publicEvidence, /NANO-|FLUX2-|POSTHASTE|\bPip\b|\bMoxie\b|C:[/\\]Users|prompt[_-]?id|creditsUsed|89\.70/i);
   assert.doesNotMatch(caseStudy, /LookProof (fixed|improved|made).*pixels/i);
+});
+
+test("public show-and-tell separates reviewed pixels, refusal, deterministic construction, and simulated onboarding", () => {
+  const readme = readText("README.md");
+  const showAndTell = readText("docs/show-and-tell.md");
+  const publicImages = [
+    "docs/assets/signal-lantern-generative-pass.png",
+    "docs/assets/signal-lantern-deterministic-frame.png",
+  ];
+
+  assert.match(readme, /\[show and tell\]\(docs\/show-and-tell\.md\)/i);
+  assert.match(showAndTell, /signal-lantern-generative-pass\.png/);
+  assert.match(showAndTell, /signal-lantern-deterministic-frame\.png/);
+  assert.match(showAndTell, /independent blind review[^\n]*PASS/i);
+  assert.match(showAndTell, /"gate": "deterministic-only-lock"/);
+  assert.match(showAndTell, /"compiledRequest": null/);
+  assert.match(showAndTell, /"dispatched": false/);
+  assert.match(showAndTell, /96,000 border pixels/);
+  assert.match(showAndTell, /1,024 marker pixels/);
+  assert.match(showAndTell, /zero differences outside/i);
+  assert.match(showAndTell, /five MCP calls[^\n]*zero failed/i);
+  assert.match(showAndTell, /simulation, not external adoption/i);
+  assert.match(showAndTell, /does not establish[^\n]*caused/i);
+  assert.match(showAndTell, /not a keeper, authority, or production asset/i);
+  assert.doesNotMatch(showAndTell, /POSTHASTE|\bPip\b|\bMoxie\b|C:[/\\]Users|t_fis|prompt[_-]?id|creditsUsed|89\.10|132 credits|500 credits|20260824_|[a-f0-9]{64}/i);
+  assert.doesNotMatch(showAndTell, /\u2014/);
+
+  for (const path of publicImages) {
+    const png = readPng(path);
+    assert.deepEqual([png.width, png.height], [1024, 1024], path);
+    assert.ok(png.chunks.includes("IHDR"), path);
+    assert.ok(png.chunks.includes("IDAT"), path);
+    assert.ok(png.chunks.includes("IEND"), path);
+    for (const privateChunk of ["tEXt", "iTXt", "zTXt", "eXIf"]) {
+      assert.ok(!png.chunks.includes(privateChunk), `${path}: ${privateChunk}`);
+    }
+  }
 });
 
 test("README is a complete local command reference", () => {
