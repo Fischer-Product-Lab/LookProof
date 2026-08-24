@@ -23,6 +23,10 @@ Both bindings compiled the identity request locally. `dispatched` stayed `false`
 
 Both case-side requests exited `1` with gate `deterministic-only-lock` and `compiledRequest: null`. No upload and no paid job was created for that lock. That refusal is the control. It is the part LookProof can own.
 
+![Synthetic request refused before spend](refusal-flow.svg)
+
+The diagram uses the checked-in synthetic fixture, not private study material. The [shared-core example](shared-core-example.md) provides the exact CLI command, equivalent MCP arguments, sanitized verdict, and equality-test location.
+
 A later mechanical `check` on each generated PNG passed. That check reads the 24-byte signature and IHDR only. It does not inspect pixels, identity, costume, or text.
 
 ## What the images did

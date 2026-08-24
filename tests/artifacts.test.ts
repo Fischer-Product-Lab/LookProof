@@ -83,6 +83,27 @@ test("public documentation states the actual LookProof boundary", () => {
   assert.match(notice, /^LookProof$/m);
 });
 
+test("public case study shows the synthetic refusal without private study artifacts or pixel-success claims", () => {
+  const readme = readText("README.md");
+  const caseStudy = readText("docs/case-study.md");
+  const sharedCore = readText("docs/shared-core-example.md");
+  const diagram = readText("docs/refusal-flow.svg");
+  const publicEvidence = [caseStudy, sharedCore, diagram].join("\n");
+
+  assert.match(readme, /\[case study\]\(docs\/case-study\.md\)/i);
+  assert.match(caseStudy, /\!\[Synthetic request refused before spend\]\(refusal-flow\.svg\)/);
+  assert.match(caseStudy, /\[shared-core example\]\(shared-core-example\.md\)/);
+  assert.match(sharedCore, /--intent deterministic-tile/);
+  assert.match(sharedCore, /"gate": "deterministic-only-lock"/);
+  assert.match(sharedCore, /"compiledRequest": null/);
+  assert.match(sharedCore, /"dispatched": false/);
+  assert.match(sharedCore, /asserts deep equality between CLI and MCP verdicts/i);
+  assert.match(diagram, /Example: refused before spend/);
+  assert.match(diagram, /0 generation calls/);
+  assert.doesNotMatch(publicEvidence, /NANO-|FLUX2-|POSTHASTE|\bPip\b|\bMoxie\b|C:[/\\]Users|prompt[_-]?id|creditsUsed|89\.70/i);
+  assert.doesNotMatch(caseStudy, /LookProof (fixed|improved|made).*pixels/i);
+});
+
 test("README is a complete local command reference", () => {
   const readme = readText("README.md");
   for (const heading of [
