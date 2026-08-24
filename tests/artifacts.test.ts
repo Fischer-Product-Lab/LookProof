@@ -162,6 +162,27 @@ test("README uses the exact Hermes YAML configuration for the contained MCP serv
   assert.doesNotMatch(readme, /mcpServers|\u2014/);
 });
 
+test("README gives a copy-paste Hermes MCP onboarding path with root-relative tool arguments", () => {
+  const readme = readText("README.md");
+
+  assert.match(readme, /### Hermes CLI setup/);
+  assert.match(readme, /hermes mcp add lookproof --command node --args/);
+  assert.match(readme, /fixtures\/synthetic/);
+  assert.match(readme, /hermes chat --in C:\/absolute\/path\/to\/LookProof/i);
+  assert.match(readme, /MCP paths are relative to the configured root/i);
+  assert.match(readme, /\[shared-core example\]\(docs\/shared-core-example\.md\)/);
+  for (const value of [
+    "`look.json`",
+    "`binding.json`",
+    "`receipts/evidence.json`",
+    "`receipts/human-review.json`",
+    "`keepers/reference.png`",
+    "`mcp__lookproof__compile_request`",
+  ]) {
+    assert.ok(readme.includes(value), value);
+  }
+});
+
 test("fixture policy is provider-neutral and production has no network or dispatch primitive", () => {
   const look = readJson("fixtures/synthetic/look.json");
   const source = [

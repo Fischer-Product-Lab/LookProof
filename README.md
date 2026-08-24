@@ -153,6 +153,32 @@ mcp_servers:
       - "C:/absolute/path/to/contained/files"
 ```
 
+### Hermes CLI setup
+
+After `npm run build`, this command adds LookProof and roots the demo tools to the checked-in synthetic fixture. Replace the first path with your clone location:
+
+```sh
+hermes mcp add lookproof --command node --args \
+  "C:/absolute/path/to/LookProof/dist/src/mcp.js" \
+  --root "C:/absolute/path/to/LookProof/fixtures/synthetic"
+```
+
+Enable all four tools when prompted, then verify the connection:
+
+```sh
+hermes mcp test lookproof
+```
+
+Start a new Hermes session after adding the server. For scripts, set the working directory explicitly instead of relying on the caller's shell directory:
+
+```sh
+hermes chat --in C:/absolute/path/to/LookProof
+```
+
+MCP paths are relative to the configured root. With the synthetic fixture root above, use `look.json`, `binding.json`, `receipts/evidence.json`, `receipts/human-review.json`, and `keepers/reference.png`. Do not prefix them with `fixtures/synthetic/` in MCP calls.
+
+The server tool names are `validate_look`, `compile_request`, `check_image`, and `explain_refusal`. Hermes exposes them with the server prefix, for example `mcp__lookproof__compile_request`. The [shared-core example](docs/shared-core-example.md) gives exact CLI and MCP arguments plus the expected refusal verdict.
+
 The MCP boundary rejects absolute, drive-relative, UNC/device, NUL, traversal, non-file, and resolved link-escape paths. In-root links may resolve to in-root regular files. This containment is defense in depth, not a sandbox, and local file changes retain a residual TOCTOU risk.
 
 ## Schemas
