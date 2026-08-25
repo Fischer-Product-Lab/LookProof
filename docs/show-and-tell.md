@@ -61,6 +61,10 @@ A separate process tested the public onboarding path without prior LookProof ses
 
 This was a controlled simulation, not external adoption. It shows that the current instructions are sufficient for a context-free process on the tested Windows setup.
 
+## Renderer compatibility
+
+A separate [renderer compatibility](renderer-compatibility.md) addendum records independently reviewed Google, Black Forest Labs, and xAI renderer routes that used the same local policy and refusal semantics. It reports bounded compatibility, not a quality ranking.
+
 ## What this proves
 
 - LookProof can compile an ordinary provider-neutral request and record its inputs.

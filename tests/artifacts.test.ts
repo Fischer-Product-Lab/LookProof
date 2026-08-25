@@ -161,6 +161,40 @@ test("public show-and-tell separates reviewed pixels, refusal, deterministic con
   }
 });
 
+test("public renderer compatibility addendum reports reviewed families without becoming a benchmark", () => {
+  const readme = readText("README.md");
+  const showAndTell = readText("docs/show-and-tell.md");
+  const compatibility = readText("docs/renderer-compatibility.md");
+  const imagePath = "docs/assets/signal-lantern-grok-pass.png";
+
+  assert.match(readme, /\[renderer compatibility\]\(docs\/renderer-compatibility\.md\)/i);
+  assert.match(showAndTell, /\[renderer compatibility\]\(renderer-compatibility\.md\)/i);
+  assert.match(compatibility, /signal-lantern-grok-pass\.png/);
+  for (const model of ["Nano Banana Pro", "FLUX.2 Pro", "Grok Imagine Image 2.0"]) {
+    assert.ok(compatibility.includes(model), model);
+  }
+  assert.match(compatibility, /same local policy and refusal semantics/i);
+  assert.match(compatibility, /independent blind review[^\n]*PASS/i);
+  assert.match(compatibility, /native 1024 by 1024/i);
+  assert.match(compatibility, /seed[^\n]*does not establish reproducibility/i);
+  assert.match(compatibility, /GPT Image 2[^\n]*not run/i);
+  assert.match(compatibility, /token-inclusive estimate/i);
+  assert.match(compatibility, /not a benchmark/i);
+  assert.match(compatibility, /does not establish[^\n]*model compliance[^\n]*reproducibility[^\n]*ranking[^\n]*caused/i);
+  assert.doesNotMatch(compatibility, /popular models?/i);
+  assert.doesNotMatch(compatibility, /POSTHASTE|\bPip\b|\bMoxie\b|C:[/\\]Users|t_fis|prompt[_-]?id|job[_-]?id|creditsUsed|14\.77|15-19|25-credit|20260824_|[a-f0-9]{64}/i);
+  assert.doesNotMatch(compatibility, /\u2014/);
+
+  const png = readPng(imagePath);
+  assert.deepEqual([png.width, png.height], [1024, 1024], imagePath);
+  assert.ok(png.chunks.includes("IHDR"), imagePath);
+  assert.ok(png.chunks.includes("IDAT"), imagePath);
+  assert.ok(png.chunks.includes("IEND"), imagePath);
+  for (const privateChunk of ["tEXt", "iTXt", "zTXt", "eXIf"]) {
+    assert.ok(!png.chunks.includes(privateChunk), `${imagePath}: ${privateChunk}`);
+  }
+});
+
 test("README is a complete local command reference", () => {
   const readme = readText("README.md");
   for (const heading of [

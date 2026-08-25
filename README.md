@@ -192,7 +192,7 @@ Schema versions remain unchanged in 0.2. The manual runtime validators preserve 
 
 ## Security and limitations
 
-Read [SECURITY.md](SECURITY.md) before reporting a vulnerability. The [threat model](docs/threat-model.md) documents trust boundaries, path controls, hashes, and residual risks. [Limitations](docs/limitations.md) states what the checks do not establish. The [case study](docs/case-study.md) records a bounded two-model failure study. The [show and tell](docs/show-and-tell.md) follows one ordinary visual pass through a deterministic refusal and exact local construction.
+Read [SECURITY.md](SECURITY.md) before reporting a vulnerability. The [threat model](docs/threat-model.md) documents trust boundaries, path controls, hashes, and residual risks. [Limitations](docs/limitations.md) states what the checks do not establish. The [case study](docs/case-study.md) records a bounded two-model failure study. The [show and tell](docs/show-and-tell.md) follows one ordinary visual pass through a deterministic refusal and exact local construction. [Renderer compatibility](docs/renderer-compatibility.md) records three independently reviewed renderer routes without turning them into a quality ranking.
 
 A compiled envelope is a local artifact for review. It is not authorization to call a provider.
 
