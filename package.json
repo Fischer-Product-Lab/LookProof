@@ -22,7 +22,7 @@
     "check": "npm run typecheck && npm test && npm run demo"
   },
   "dependencies": {
-    "@modelcontextprotocol/server": "2.0.0",
+    "@modelcontextprotocol/server": "2.1.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
